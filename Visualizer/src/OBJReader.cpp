@@ -1,4 +1,5 @@
 #include <QString>
+#include <QList>
 #include <fstream>
 #include <iostream>
 #include "OBJReader.h"
@@ -99,14 +100,14 @@ void OBJReader::read(const string& fileName, Triangulation& triangulation)
                 if (word == "f")
                 {
                     ss >> str1 >> str2 >> str3;
-                    QString str_s = QString::fromStdString(str1);
-                    QStringList splitlist =  str_s.split("/");
-                    int FirstPointIndex = stoi(str1.substr(0, 1)) - 1;
-                    int SecondPointIndex = stoi(str2.substr(0, 1)) - 1;
-                    int ThirdPointIndex = stoi(str3.substr(0, 1)) - 1;
-                    int normalIndex = stoi(str3.substr(4, 1)) - 1;
+                    QString str_s1 = QString::fromStdString(str1);
+                    QString str_s2 = QString::fromStdString(str1);
+                    QString str_s3 = QString::fromStdString(str1);
+                    QStringList splitlist1 =  str_s1.split("/");
+                    QStringList splitlist2 = str_s2.split("/");
+                    QStringList splitlist3 = str_s3.split("/");
 
-                    triangulation.Triangles.push_back(Triangle(normals[normalIndex], vertices[FirstPointIndex], vertices[SecondPointIndex], vertices[ThirdPointIndex] ));
+                    triangulation.Triangles.push_back(Triangle(normals[splitlist1.value(2).toInt()], vertices[splitlist1.value(0).toInt()], vertices[splitlist2.value(0).toInt()], vertices[splitlist3.value(0).toInt()]));
                 }
             }
         }
