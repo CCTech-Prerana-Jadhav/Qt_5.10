@@ -31,5 +31,6 @@ void STLWriter::Write(const std::string& filename, const Triangulation& triangul
             outfile << "        endloop\n";
             outfile << "    endfacet\n";
         }
+        outfile << "endsolid";
     }
 }

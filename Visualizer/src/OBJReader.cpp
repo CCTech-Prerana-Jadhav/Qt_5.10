@@ -101,13 +101,13 @@ void OBJReader::read(const string& fileName, Triangulation& triangulation)
                 {
                     ss >> str1 >> str2 >> str3;
                     QString str_s1 = QString::fromStdString(str1);
-                    QString str_s2 = QString::fromStdString(str1);
-                    QString str_s3 = QString::fromStdString(str1);
+                    QString str_s2 = QString::fromStdString(str2);
+                    QString str_s3 = QString::fromStdString(str3);
                     QStringList splitlist1 =  str_s1.split("/");
                     QStringList splitlist2 = str_s2.split("/");
                     QStringList splitlist3 = str_s3.split("/");
 
-                    triangulation.Triangles.push_back(Triangle(normals[splitlist1.value(2).toInt()], vertices[splitlist1.value(0).toInt()], vertices[splitlist2.value(0).toInt()], vertices[splitlist3.value(0).toInt()]));
+                    triangulation.Triangles.push_back(Triangle(normals[splitlist1.value(2).toInt()-1], vertices[splitlist1.value(0).toInt()-1], vertices[splitlist2.value(0).toInt()-1], vertices[splitlist3.value(0).toInt()-1]));
                 }
             }
         }

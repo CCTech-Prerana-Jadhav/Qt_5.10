@@ -15,8 +15,8 @@ public:
     ~Visualizer();
 
 private slots:
-    /*void onSTLLoadFileClick();
-    void onOBJTranslateClick();*/
+    void onSTLLoadFileClick();
+    void onOBJTranslateClick();
     void onOBJLoadFileClick();
     void onSTLTranslateClick();
 
