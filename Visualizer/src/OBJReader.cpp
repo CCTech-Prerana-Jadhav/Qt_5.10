@@ -38,18 +38,19 @@ void OBJReader::read(const string& fileName, Triangulation& triangulation)
     //assert(infile && "Error: Could not open file");
     if (infile.is_open())
     {
-
         string line;
 
         while (getline(infile, line))
         {
             stringstream ss(line);
-            string word;
-            while (ss >> word)
-            {
-                if (word == "v")
+            QString _line = QString::fromStdString(line);
+            QStringList linelist = _line.split(" ");
+			cout << linelist.value(0).toStdString() << endl;
+                if (linelist.value(0) == "v")
                 {
-                    ss >> xyz[0] >> xyz[1] >> xyz[2];
+					xyz[0] = linelist.value(1).toDouble();
+                    xyz[1] = linelist.value(2).toDouble();
+                    xyz[2] = linelist.value(3).toDouble();
 
                     int pt[3];
 
@@ -73,9 +74,11 @@ void OBJReader::read(const string& fileName, Triangulation& triangulation)
                     vertices.push_back(Point(pt[0], pt[1], pt[2]));
                 }
 
-                if (word == "vn")
+                if (linelist.value(0) == "vn")
                 {
-                    ss >> normalXYZ[0] >> normalXYZ[1] >> normalXYZ[2];
+                    normalXYZ[0] = linelist.value(1).toDouble();
+                    normalXYZ[1] = linelist.value(2).toDouble();
+                    normalXYZ[2] = linelist.value(3).toDouble();
 
                     int pt[3];
 
@@ -97,7 +100,7 @@ void OBJReader::read(const string& fileName, Triangulation& triangulation)
                     normals.push_back(Point(pt[0], pt[1], pt[2]));
                 }
 
-                if (word == "f")
+                if (linelist.value(0) == "f")
                 {
                     ss >> str1 >> str2 >> str3;
                     QString str_s1 = QString::fromStdString(str1);
@@ -109,7 +112,6 @@ void OBJReader::read(const string& fileName, Triangulation& triangulation)
 
                     triangulation.Triangles.push_back(Triangle(normals[splitlist1.value(2).toInt()-1], vertices[splitlist1.value(0).toInt()-1], vertices[splitlist2.value(0).toInt()-1], vertices[splitlist3.value(0).toInt()-1]));
                 }
-            }
         }
     }
 }
