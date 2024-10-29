@@ -26,6 +26,7 @@ void OBJReader::read(const std::string& fileName, Triangulation& triangulation)
     std::map<double, int> uniqueMap;
     double xyz[3];
     double normalXYZ[3];
+    std::string fLetter;
     std::string str1;
     std::string str2;
     std::string str3;
@@ -102,13 +103,13 @@ void OBJReader::read(const std::string& fileName, Triangulation& triangulation)
 
             if (linelist.value(0) == "f")
             {
-                std::string fLetter;
                 ss >> fLetter >> str1 >> str2 >> str3;
                 QString str_s1 = QString::fromStdString(str1);
                 QString str_s2 = QString::fromStdString(str2);
                 QString str_s3 = QString::fromStdString(str3);
                 QStringList splitList =  str_s1.split("/");
                 splitList << str_s2.split("/") << str_s3.split("/");
+				int normalId = splitList.value(2).toInt() - 1;
                 int firstVertexId = splitList.value(0).toInt() - 1;
                 int secondVertexId = splitList.value(3).toInt() - 1;
                 int thirdVertexId = splitList.value(6).toInt() - 1;
@@ -117,7 +118,7 @@ void OBJReader::read(const std::string& fileName, Triangulation& triangulation)
                 Point v1 = vertices[firstVertexId];
                 Point v2 = vertices[secondVertexId];
                 Point v3 = vertices[thirdVertexId];
-                triangulation.Triangles.push_back(Triangle(normals[splitList.value(2).toInt()-1], vertices[firstVertexId], vertices[secondVertexId], vertices[thirdVertexId]));
+                triangulation.Triangles.push_back(Triangle(normals[normalId], vertices[firstVertexId], vertices[secondVertexId], vertices[thirdVertexId]));
             }
         }
     }
