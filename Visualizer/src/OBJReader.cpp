@@ -11,7 +11,6 @@
 #include <cassert>
 #include <map>
 
-using namespace std;
 
 OBJReader::OBJReader()
 {
@@ -21,31 +20,31 @@ OBJReader::~OBJReader()
 {
 }
 
-void OBJReader::read(const string& fileName, Triangulation& triangulation)
+void OBJReader::read(const std::string& fileName, Triangulation& triangulation)
 {
-    map<double, int> uniqueMap;
+    std::map<double, int> uniqueMap;
     double xyz[3];
     double normalXYZ[3];
-    string str1;
-    string str2;
-    string str3;
+    std::string str1;
+    std::string str2;
+    std::string str3;
     //vector<int> pointIndices;
-    vector<Point> vertices;
-    vector<Point> normals;
+    std::vector<Point> vertices;
+    std::vector<Point> normals;
 
 
-    ifstream infile(fileName);
+    std::ifstream infile(fileName);
     //assert(infile && "Error: Could not open file");
     if (infile.is_open())
     {
-        string line;
+        std::string line;
 
         while (getline(infile, line))
         {
-            stringstream ss(line);
+            std::stringstream ss(line);
             QString _line = QString::fromStdString(line);
             QStringList linelist = _line.split(" ");
-			cout << linelist.value(0).toStdString() << endl;
+            //std::cout << linelist.value(0).toStdString() << std::endl;
             if (linelist.value(0) == "v")
             {
 				xyz[0] = linelist.value(1).toDouble();
